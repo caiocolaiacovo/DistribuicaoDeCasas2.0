@@ -21,5 +21,10 @@ namespace Selecao.Dominio
         {
             _criteriosAtendidos.Add(criterio);
         }
+
+        public virtual void AdicionarPessoa(Pessoa pessoa)
+        {
+            _pessoas.Add(pessoa);
+        }
     }
 }

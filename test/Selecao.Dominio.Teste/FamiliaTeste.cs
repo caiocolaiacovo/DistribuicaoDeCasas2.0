@@ -1,3 +1,4 @@
+using System.Linq;
 using ExpectedObjects;
 using Moq;
 using Nosbor.FluentBuilder.Lib;
@@ -17,6 +18,22 @@ namespace Selecao.Dominio.Teste
             familia.AdicionarCriterioAtendido(criterio.Object);
 
             criteriosEsperados.ToExpectedObject().ShouldMatch(familia.Criterios);
+        }
+
+        [Fact]
+        public void Deve_adicionar_uma_pessoa_a_familia()
+        {
+            var familia = FluentBuilder<Familia>.New().Build();
+            var pessoaEsperada = FluentBuilder<Pessoa>.New()
+                .With(p => p.Nome, "Maria da Luz")
+                .With(p => p.Renda, 1000)
+                .With(p => p.Tipo, TipoPessoa.Pretendente)
+                .Build();
+
+            familia.AdicionarPessoa(pessoaEsperada);
+
+            var pessoaEncontrada = familia.Pessoas.Single();
+            pessoaEsperada.ToExpectedObject().ShouldMatch(pessoaEncontrada);
         }
     }
 }
