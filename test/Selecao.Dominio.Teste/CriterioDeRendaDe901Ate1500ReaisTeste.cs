@@ -6,7 +6,7 @@ namespace Selecao.Dominio.Teste
 {
     public class CriterioDeRendaDe901Ate1500ReaisTeste
     {
-        private CriterioDeRendaDe901Ate1500Reais _criterio;
+        private readonly CriterioDeRendaDe901Ate1500Reais _criterio;
 
         public CriterioDeRendaDe901Ate1500ReaisTeste()
         {
@@ -16,7 +16,8 @@ namespace Selecao.Dominio.Teste
         [Fact]
         public void Deve_criar_um_criterio_com_nome_e_pontuacao()
         {
-            var criterioEsperado = new {
+            var criterioEsperado = new
+            {
                 Nome = "Renda de 901 até 1500 reais",
                 Pontos = 3
             };

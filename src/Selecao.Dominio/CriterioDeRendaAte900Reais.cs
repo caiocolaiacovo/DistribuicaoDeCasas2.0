@@ -2,16 +2,16 @@ using System.Linq;
 
 namespace Selecao.Dominio
 {
-  public class CriterioDeRendaAte900Reais : ICriterio
-  {
-    public string Nome => "Renda até 900 reais";
-    public int Pontos => 5;
-
-    public bool Satisfaz(Familia familia)
+    public class CriterioDeRendaAte900Reais : ICriterio
     {
-        var rendaTotal = familia.Pessoas.Sum(p => p.Renda);
+        public string Nome => "Renda até 900 reais";
+        public int Pontos => 5;
 
-        return rendaTotal <= 900;
+        public bool Satisfaz(Familia familia)
+        {
+            var rendaTotal = familia.Pessoas.Sum(p => p.Renda);
+
+            return rendaTotal <= 900;
+        }
     }
-  }
 }

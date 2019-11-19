@@ -9,7 +9,8 @@ namespace Selecao.Dominio.Teste
         [Fact]
         public void Deve_criar_um_criterio_com_nome_e_pontuacao()
         {
-            var criterioEsperado = new {
+            var criterioEsperado = new
+            {
                 Nome = "Renda até 900 reais",
                 Pontos = 5
             };

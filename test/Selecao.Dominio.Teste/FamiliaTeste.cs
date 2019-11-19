@@ -13,7 +13,7 @@ namespace Selecao.Dominio.Teste
         {
             var familia = FluentBuilder<Familia>.New().Build();
             var criterio = new Mock<ICriterio>();
-            var criteriosEsperados = new [] { criterio.Object };
+            var criteriosEsperados = new[] { criterio.Object };
 
             familia.AdicionarCriterioAtendido(criterio.Object);
 

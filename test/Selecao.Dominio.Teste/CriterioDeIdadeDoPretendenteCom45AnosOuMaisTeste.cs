@@ -5,14 +5,14 @@ using Xunit;
 
 namespace Selecao.Dominio.Teste
 {
-    public class CriterioDeIdadeDoPretendenteComMenosDe30AnosTeste
+    public class CriterioDeIdadeDoPretendenteCom45AnosOuMaisTeste
     {
-        private readonly CriterioDeIdadeDoPretendenteComMenosDe30Anos _criterio;
+        private readonly CriterioDeIdadeDoPretendenteCom45AnosOuMais _criterio;
         private readonly Familia _familia;
 
-        public CriterioDeIdadeDoPretendenteComMenosDe30AnosTeste()
+        public CriterioDeIdadeDoPretendenteCom45AnosOuMaisTeste()
         {
-            _criterio = new CriterioDeIdadeDoPretendenteComMenosDe30Anos();
+            _criterio = new CriterioDeIdadeDoPretendenteCom45AnosOuMais();
 
             _familia = FluentBuilder<Familia>.New().Build();
         }
@@ -22,22 +22,22 @@ namespace Selecao.Dominio.Teste
         {
             var criterioEsperado = new
             {
-                Nome = "Pretendente com menos de 30 anos",
-                Pontos = 1
+                Nome = "Pretendente com 45 anos ou mais",
+                Pontos = 3
             };
 
-            var criterio = new CriterioDeIdadeDoPretendenteComMenosDe30Anos();
+            var criterio = new CriterioDeIdadeDoPretendenteCom45AnosOuMais();
 
             criterioEsperado.ToExpectedObject().ShouldMatch(criterio);
         }
 
         [Fact]
-        public void Deve_atender_o_criterio_caso_o_pretendente_possua_menos_de_30_anos()
+        public void Deve_atender_o_criterio_caso_o_pretendente_possua_45_anos()
         {
-            var dataUmDiaAntesDoAniversarioDe30Anos = new DateTime(DateTime.Today.Year - 30,
-                DateTime.Today.Month, DateTime.Today.Day + 1);
+            var dataDe45AnosAtras = new DateTime(DateTime.Today.Year - 45,
+                DateTime.Today.Month, DateTime.Today.Day);
             var pretendente = FluentBuilder<Pessoa>.New()
-                .With(p => p.DataDeNascimento, dataUmDiaAntesDoAniversarioDe30Anos)
+                .With(p => p.DataDeNascimento, dataDe45AnosAtras)
                 .With(p => p.Tipo, TipoPessoa.Pretendente)
                 .Build();
             _familia.AdicionarPessoa(pretendente);
@@ -48,28 +48,28 @@ namespace Selecao.Dominio.Teste
         }
 
         [Fact]
-        public void Nao_deve_atender_o_criterio_caso_o_pretendente_possua_30_anos()
+        public void Deve_atender_o_criterio_caso_o_pretendente_possua_mais_de_45_anos()
         {
-            var dataDe30AnosAtras = new DateTime(DateTime.Today.Year - 30,
-                DateTime.Today.Month, DateTime.Today.Day);
+            var dataDeUmDiaAposOAniversarioDe45Anos = new DateTime(DateTime.Today.Year - 45,
+                DateTime.Today.Month, DateTime.Today.Day - 1);
             var pretendente = FluentBuilder<Pessoa>.New()
-                .With(p => p.DataDeNascimento, dataDe30AnosAtras)
+                .With(p => p.DataDeNascimento, dataDeUmDiaAposOAniversarioDe45Anos)
                 .With(p => p.Tipo, TipoPessoa.Pretendente)
                 .Build();
             _familia.AdicionarPessoa(pretendente);
 
             var criterioAtendido = _criterio.Satisfaz(_familia);
 
-            Assert.False(criterioAtendido);
+            Assert.True(criterioAtendido);
         }
 
         [Fact]
-        public void Nao_deve_atender_o_criterio_caso_o_pretendente_possua_mais_de_30_anos()
+        public void Nao_deve_atender_o_criterio_caso_o_pretendente_possua_menos_de_45_anos()
         {
-            var dataUmDiaDepoisDoAniversarioDe30Anos = new DateTime(DateTime.Today.Year - 30,
-                DateTime.Today.Month, DateTime.Today.Day - 1);
+            var dataDeUmDiaAntesDoAniversarioDe45Anos = new DateTime(DateTime.Today.Year - 45,
+                DateTime.Today.Month, DateTime.Today.Day + 1);
             var pretendente = FluentBuilder<Pessoa>.New()
-                .With(p => p.DataDeNascimento, dataUmDiaDepoisDoAniversarioDe30Anos)
+                .With(p => p.DataDeNascimento, dataDeUmDiaAntesDoAniversarioDe45Anos)
                 .With(p => p.Tipo, TipoPessoa.Pretendente)
                 .Build();
             _familia.AdicionarPessoa(pretendente);

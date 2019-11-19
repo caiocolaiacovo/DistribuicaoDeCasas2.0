@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Selecao.Aplicacao.Teste
 {
-  public class ValidadorDeCriteriosTeste
+    public class ValidadorDeCriteriosTeste
     {
         [Fact]
         public void Nao_deve_validar_criterio_de_uma_familia_nula()
@@ -54,5 +54,5 @@ namespace Selecao.Aplicacao.Teste
 
             familia.Verify(f => f.AdicionarCriterioAtendido(criterioAtendido.Object));
         }
-    }  
+    }
 }

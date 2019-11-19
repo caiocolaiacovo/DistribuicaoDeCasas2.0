@@ -11,7 +11,7 @@ namespace Selecao.Dominio
 
         public bool Satisfaz(Familia familia)
         {
-            var pretendente = familia.Pessoas.Where(p => p.Tipo == TipoPessoa.Pretendente).First();
+            var pretendente = familia.Pessoas.First(p => p.Tipo == TipoPessoa.Pretendente);
             var ultimaDataValida = DateTime.Today.AddYears(-30);
 
             return pretendente.DataDeNascimento > ultimaDataValida;
